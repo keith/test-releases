@@ -21,12 +21,14 @@ jobs:
       - run: |
           echo "Log level: $TAG"
           echo "Environment: $NOTES"
+          COPYFILE_DISABLE=1 tar czvf "apple_support.$TAG.tar.gz" ./*
         env:
           TAG: ${{ inputs.tag }}
           NOTES: ${{ inputs.notes }}
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          files: Release.txt
+          files: apple_support.${{ inputes.tag }}.tar.gz
           body: ${{ inputs.notes }}
           tag_name: ${{ inputs.tag }}
+          fail_on_unmatched_files: true
