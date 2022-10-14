@@ -17,7 +17,6 @@ jobs:
       - run: |
           set -euo pipefail
           echo "Log level: $TAG"
-          echo "Environment: $NOTES"
           COPYFILE_DISABLE=1 tar czvf "apple_support.$TAG.tar.gz" ./*
           ./generate-notes.sh | tee notes.md
           gh release create "$TAG" --notes-file notes.md "apple_support.$TAG.tar.gz"
