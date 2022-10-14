@@ -18,24 +18,16 @@ jobs:
         run: |
           set -euo pipefail
 
-          git config user.name "myusername"
-          git config user.email "myusername@gmail.com"
-          echo 1 >> foo.txt
-          git add foo.txt
-          git commit -m "bump foo.txt"
+          git config user.name "Automatic version bump"
+          git config user.email "keithbsmiley@gmail.com"
+          ./.github/update-module-version.sh "$TAG"
+          git add MODULE.bazel
+          git commit -m "Update MODULE.bazel to $TAG"
           git push
 
-          echo "Log level: $TAG"
           COPYFILE_DISABLE=1 tar czvf "apple_support.$TAG.tar.gz" ./*
-          ./generate-notes.sh | tee notes.md
+          ./.github/generate-notes.sh "$TAG" | tee notes.md
           gh release create "$TAG" --notes-file notes.md "apple_support.$TAG.tar.gz"
         env:
           TAG: ${{ inputs.tag }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # - name: Release
-      #   uses: softprops/action-gh-release@v1
-      #   with:
-      #     files: apple_support.${{ inputs.tag }}.tar.gz
-      #     body: ${{ inputs.notes }}
-      #     tag_name: ${{ inputs.tag }}
-      #     fail_on_unmatched_files: true
