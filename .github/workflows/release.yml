@@ -35,7 +35,7 @@ jobs:
           msg="Update MODULE.bazel to $TAG"
           git commit -m "$msg"
           git push -u origin "$tmp_branch"
-          gh pr create --title "$msg" --body "" --base "$BRANCH" --head "tmp_branch"
+          gh pr create --title "$msg" --body ""
           gh pr merge --admin --squash "$tmp_branch"
 
           COPYFILE_DISABLE=1 tar czvf "apple_support.$TAG.tar.gz" ./*
