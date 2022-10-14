@@ -17,6 +17,7 @@ jobs:
       - name: Create Release
         run: |
           set -euo pipefail
+          set -x
 
           git config user.name "Automatic version bump"
           git config user.email "keithbsmiley@gmail.com"
