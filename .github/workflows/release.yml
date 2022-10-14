@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: 'The new version to tag'
+        description: 'The new version to tag, ex: 1.0.5'
         required: true
         type: string
 
@@ -21,6 +21,7 @@ jobs:
           gh release create "$TAG" --notes-file notes.md "apple_support.$TAG.tar.gz"
         env:
           TAG: ${{ inputs.tag }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # - name: Release
       #   uses: softprops/action-gh-release@v1
       #   with:
