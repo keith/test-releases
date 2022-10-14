@@ -1,4 +1,4 @@
-name: release
+name: Create Release
 
 on:
   workflow_dispatch:
@@ -18,7 +18,7 @@ jobs:
           echo "Log level: $TAG"
           echo "Environment: $NOTES"
           COPYFILE_DISABLE=1 tar czvf "apple_support.$TAG.tar.gz" ./*
-          gh release create "$TAG" --notes-file notes.md "apple_support.$TAG.tar.gz"
+          ./generate-notes.sh | gh release create "$TAG" --notes-file - "apple_support.$TAG.tar.gz"
         env:
           TAG: ${{ inputs.tag }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
