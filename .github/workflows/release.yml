@@ -7,6 +7,11 @@ on:
         description: 'The new version to tag, ex: 1.0.5'
         required: true
         type: string
+      branch:
+        description: 'The branch to create the release off of'
+        required: true
+        type: string
+        default: 'master'
 
 jobs:
   create-release:
@@ -14,6 +19,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        ref: ${{ inputs.branch }}
       - name: Create Release
         run: |
           set -euo pipefail
