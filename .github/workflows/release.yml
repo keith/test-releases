@@ -7,10 +7,6 @@ on:
         description: 'The new version to tag'
         required: true
         type: string
-      notes:
-        description: 'The release notes'
-        required: true
-        type: string
 
 jobs:
   create-release:
@@ -22,13 +18,13 @@ jobs:
           echo "Log level: $TAG"
           echo "Environment: $NOTES"
           COPYFILE_DISABLE=1 tar czvf "apple_support.$TAG.tar.gz" ./*
+          gh release create "$TAG" --notes-file notes.md "apple_support.$TAG.tar.gz"
         env:
           TAG: ${{ inputs.tag }}
-          NOTES: ${{ inputs.notes }}
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: apple_support.${{ inputs.tag }}.tar.gz
-          body: ${{ inputs.notes }}
-          tag_name: ${{ inputs.tag }}
-          fail_on_unmatched_files: true
+      # - name: Release
+      #   uses: softprops/action-gh-release@v1
+      #   with:
+      #     files: apple_support.${{ inputs.tag }}.tar.gz
+      #     body: ${{ inputs.notes }}
+      #     tag_name: ${{ inputs.tag }}
+      #     fail_on_unmatched_files: true
