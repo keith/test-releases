@@ -14,8 +14,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - run: |
+      - name: Create Release
+        run: |
           set -euo pipefail
+
+          git config user.name "myusername"
+          git config user.email "myusername@gmail.com"
+          echo 1 >> foo.txt
+          git add foo.txt
+          git commit -m "bump foo.txt"
+          git push
+
           echo "Log level: $TAG"
           COPYFILE_DISABLE=1 tar czvf "apple_support.$TAG.tar.gz" ./*
           ./generate-notes.sh | tee notes.md
