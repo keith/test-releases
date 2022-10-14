@@ -13,7 +13,7 @@ on:
         type: string
 
 jobs:
-  build:
+  create-release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -21,8 +21,12 @@ jobs:
       - run: |
           echo "Log level: $TAG"
           echo "Environment: $NOTES"
+        env:
+          TAG: ${{ inputs.tag }}
+          NOTES: ${{ inputs.notes }}
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           files: Release.txt
-          body: "$NOTES"
+          body: ${{ inputs.notes }}
+          tag_name: ${{ inputes.tag }}
