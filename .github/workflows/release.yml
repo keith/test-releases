@@ -26,8 +26,8 @@ jobs:
           set -euo pipefail
           set -x
 
-          git config user.name "Automatic version bump"
-          git config user.email "keithbsmiley@gmail.com"
+          git config --global user.name "Automatic version bump"
+          git config --global user.email "keithbsmiley@gmail.com"
           # ./.github/update-module-version.sh "$TAG"
           # tmp_branch="$(uuidgen)"
           # git checkout -b "$tmp_branch"
