@@ -35,7 +35,8 @@ jobs:
           # ./.github/generate-notes.sh "$TAG" | tee notes.md
           # gh release create "$TAG" --target "$GITHUB_REF_NAME" --notes-file notes.md "apple_support.$TAG.tar.gz"
 
-          git clone https://$GH_TOKEN@github.com/bazelbuild/rules_swift.git
+          # git clone https://$GH_TOKEN@github.com/bazelbuild/rules_swift.git
+          git clone git@github.com:bazelbuild/rules_swift.git
           cd rules_swift
           echo "hi" >> README.md
           tmp_branch="$(uuidgen)"
